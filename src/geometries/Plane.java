@@ -8,10 +8,21 @@ import primitives.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class Plane is representing a plane in three-dimensional space
+ * of cartesian coordinate system
+ */
+
 public class Plane implements Geometry
 {
     private Vector v;
     private Point3D p;
+
+    /**
+     * Plane constructor
+     * @param v 90 degrees vector for the plane
+     * @param p point on the plane
+     */
 
     public Plane(Vector v, Point3D p)
     {
@@ -19,17 +30,34 @@ public class Plane implements Geometry
         this.p = p;
     }
 
+    /**
+     * copy constructor
+     * @param pl Plane to copy from
+     */
+
     public Plane (Plane pl)
     {
         this.p = pl.p;
         this.v = pl.v;
     }
 
+    /**
+     * constructor by three points on the Plane
+     * @param a point that starts two vectors on the Plane, and the point on the plane
+     * @param b point that it is the destination of one of the vector
+     * @param c point that it is the destination of the other
+     */
+
     public Plane (Point3D a, Point3D b, Point3D c)
     {
         this.p = a;
         this.v = a.subtract(b).crossProduct(a.subtract(c)).normalize();
     }
+
+    /**
+     * Vector getter, get the 90 degrees vector of te plane as normal
+     * @return normal vector
+     */
 
     public Vector getV()
     {
@@ -40,6 +68,11 @@ public class Plane implements Geometry
     {
         this.v = v;
     }
+
+    /**
+     * Point_3D getter, get the point that on the plane
+     * @return Point_3D
+     */
 
     public Point3D getP()
     {

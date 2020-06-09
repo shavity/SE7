@@ -6,19 +6,39 @@ import primitives.Vector;
 
 import java.util.List;
 
+/**
+ * abstract class RadialGeometry is representing
+ * a radial function in three-dimensional cartesian coordinate system
+ */
+
 public abstract class RadialGeometry implements Geometry
 {
     private double radius;
+
+    /**
+     * RadialGeometry constructor
+     * @param radius of the function
+     */
 
     public RadialGeometry(double radius)
     {
         this.radius = radius;
     }
 
+    /**
+     * copy constructor
+     * @param rg to copy from
+     */
+
     public RadialGeometry(RadialGeometry rg)
     {
         this.radius = rg.radius;
     }
+
+    /**
+     * double value getter
+     * @return the radius of the function
+     */
 
     public double getRadius()
     {
@@ -30,6 +50,11 @@ public abstract class RadialGeometry implements Geometry
         this.radius = radius;
     }
 
+    /**
+     * casting RadialGeometry's value in to a String to represent it in a string
+     * @return String
+     */
+
     @Override
     public String toString()
     {
@@ -37,6 +62,12 @@ public abstract class RadialGeometry implements Geometry
                 "radius=" + radius +
                 '}';
     }
+
+    /**
+     * check if the object we got is equal to this RadialGeometry
+     * @param o an Object (also may be RadialGeometry)
+     * @return true if equals, else false
+     */
 
     @Override
     public boolean equals(Object o)

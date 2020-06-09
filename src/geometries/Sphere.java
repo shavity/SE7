@@ -12,15 +12,30 @@ import java.util.List;
 import static java.lang.StrictMath.abs;
 import static java.lang.StrictMath.pow;
 
+/**
+ * class sphere is representing a hollow ball like the atmosphere
+ */
+
 public class Sphere extends RadialGeometry
 {
     private Point3D center;
+
+    /**
+     * Sphere constructor
+     * @param p Point_3D the location of the center of the sphere
+     * @param r double the radius of the sphere
+     */
 
     public Sphere (Point3D p, double r)
     {
         super(r);
         this.center = p;
     }
+
+    /**
+     * Point_3D getter
+     * @return center of the sphere
+     */
 
     public Point3D getCenter()
     {

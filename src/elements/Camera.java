@@ -4,17 +4,28 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * class Camera is representing a tool to get view from
+ */
+
 public class Camera {
     Point3D center;
     Vector vUp;
     Vector vRight;
     Vector vTo;
 
+    /**
+     * Camera constructor
+     * @param point_3D to value Camera.center point of camera
+     * @param vTo to value Camera.vTo & Camera.vRight, vTo - vector toward of camera
+     * @param vUp to value Camera.vUp & Camera.vRight, vUp - vector up of camera
+     */
+
     public Camera(Point3D point_3D, Vector vTo, Vector vUp){
         this.center = point_3D;
         this.vUp = vUp.normalize();
         this.vTo = vTo.normalize();
-        if (vTo.dotProduct(vUp)==0)
+        if (vTo.dotProduct(vUp) == 0)
         {
             vRight=vTo.crossProduct(vUp);
         }
@@ -64,18 +75,37 @@ public class Camera {
         return ray;
     }
 
+    /**
+     * Point_3D value getter
+     * @return point of camera
+     */
 
     public Point3D getPoint_3D() {
         return center;
     }
 
+    /**
+     * Vector value getter
+     * @return up vector of camera
+     */
+
     public Vector getvUp() {
         return vUp;
     }
 
+    /**
+     * Vector value getter
+     * @return right vector of camera
+     */
+
     public Vector getvRight() {
         return vRight;
     }
+
+    /**
+     * Vector value getter
+     * @return toward vector of camera
+     */
 
     public Vector getvTo() {
         return vTo;

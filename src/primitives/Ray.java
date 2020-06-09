@@ -21,6 +21,11 @@ public class Ray
         this.p = p;
     }
 
+    /**
+     * copy constructor
+     * @param r Ray to copy from
+     */
+
     public Ray (Ray r)
     {
         this.p = r.p;
