@@ -26,7 +26,7 @@ public class TriangleTests {
     }
 
     @Test
-    public void findIntsersections1() {
+    public void findIntersections1() {
         Point3D x = new Point3D(-100, -100, -200);
         Point3D y = new Point3D(100, -100, -200);
         Point3D z = new Point3D(0, 100, -200);
@@ -38,7 +38,7 @@ public class TriangleTests {
     }
 
     @Test
-    public void findIntsersections2() {
+    public void findIntersections2() {
         Point3D x = new Point3D(10, 10, 50);
         Point3D y = new Point3D(20, 50, -20);
         Point3D z = new Point3D(30, 40, -10);
@@ -55,7 +55,7 @@ public class TriangleTests {
     }
 
     @Test
-    public void findIntsersections3() {
+    public void findIntersections3() {
         Point3D x = new Point3D(0, 1, -2);
         Point3D y = new Point3D(-1, -1, -2);
         Point3D z = new Point3D(1, -1, -2);
@@ -67,4 +67,5 @@ public class TriangleTests {
 
         assertEquals(flag, false);
     }
+
 }

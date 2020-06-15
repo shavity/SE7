@@ -97,7 +97,7 @@ public class Plane implements Geometry
      */
 
     @Override
-    public List<Point3D> findIntsersections(Ray ray)
+    public List<Point3D> findIntersections(Ray ray)
     {
         //if there is an intersection, it will be t * r.vector away from r.point
         double t = -1 * (v.dotProduct(ray.getP().subtract(p)))/(v.dotProduct(ray.getV()));
