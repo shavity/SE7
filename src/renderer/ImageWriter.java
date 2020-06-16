@@ -98,6 +98,14 @@ public class ImageWriter {
 	 */
 	public void writePixel(int xIndex, int yIndex, Color color){
 		_image.setRGB(xIndex, yIndex, color.getRGB());
+
 	}
 
+	public String getPROJECT_PATH() {
+		return PROJECT_PATH;
+	}
+
+	public BufferedImage get_image() {
+		return _image;
+	}
 }

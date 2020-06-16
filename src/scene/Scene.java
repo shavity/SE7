@@ -10,9 +10,9 @@ public class Scene {
     private String _name;
     private Color _background;
     private AmbientLight _ambientLight;
-    Geometries _geometries;
-    Camera _camera;
-    double _distance;
+    private Geometries _geometries;
+    private Camera _camera;
+    private double _distance;
 
     public Scene(String _Name) {
         this._name = _Name;
@@ -70,5 +70,12 @@ public class Scene {
 
     public double get_distance() {
         return _distance;
+    }
+
+    @Override
+    public String toString() {
+        return "Scene{" +
+                "_geometries=" + _geometries +
+                '}';
     }
 }

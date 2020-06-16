@@ -80,7 +80,7 @@ public class Triangle extends Polygon
         list = p1.findIntersections(ray);                                   //intersections of plane
 
         if(list==null)
-            return null;
+            return new ArrayList<Point3D>();
 
         Point3D p = list.get(0);
         double i1 = (p.subtract(p0)).dotProduct(n1);
@@ -93,6 +93,6 @@ public class Triangle extends Polygon
         if((i1>0 && i2>0 && i3>0) || (i1<0 && i2<0 && i3<0))                                //if it is inside the triangle
             return list;
 
-        return null;
+        return new ArrayList<Point3D>();
     }                  //returns intersection points with the triangle
 }

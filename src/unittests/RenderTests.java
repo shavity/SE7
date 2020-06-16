@@ -5,6 +5,7 @@ import org.junit.Test;
 import elements.*;
 import geometries.*;
 import primitives.*;
+import primitives.Color;
 import renderer.ImageWriter;
 import renderer.Render;
 import scene.Scene;
@@ -36,11 +37,10 @@ public class RenderTests {
                 new Triangle(new Point3D(-100, 0, 100), new Point3D(0, 100, 100), new Point3D(-100, 100, 100)),
                 new Triangle(new Point3D(-100, 0, 100), new Point3D(0, -100, 100), new Point3D(-100, -100, 100)));
 
-        ImageWriter imageWriter = new ImageWriter("base render test", 500, 500, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("base render test1", 500, 500, 500, 500);
         Render render = new Render(imageWriter, scene);
 
         render.renderImage();
         render.printGrid(50, java.awt.Color.YELLOW);
-        render.renderImage();
     }
 }

@@ -2,24 +2,22 @@ package renderer;
 
 import geometries.Geometry;
 import geometries.Intersectable;
-import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import scene.Scene;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class Render {
     private ImageWriter imageWriter;
     private Scene scene;
 
-    public Render(ImageWriter imageWriter,Scene scene)
+    public Render(ImageWriter imageWriter,Scene scene1)
     {
         this.imageWriter=imageWriter;
-        this.scene=scene;
+        this.scene=scene1;
     }
 
     /**
@@ -27,36 +25,24 @@ public class Render {
      */
     public void renderImage() {
         //Passes each pixel in the image, and checks which color should be put, if it has a cut point - finds using the calColor function. If not - painting with the color of the background.
-        /*for (int i = 0; i < imageWriter.getNx(); i++) {
+        for (int i = 0; i < imageWriter.getNx(); i++) {
             for (int j = 0; j < imageWriter.getNy(); j++) {
-                List<Ray> rays = new ArrayList<Ray>();
-                rays.add(scene.get_camera().constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), i, j, scene.get_distance(), imageWriter.getWidth(), imageWriter.getHeight()));
-                List<Color> listColor = new ArrayList<Color>();
-                for(Ray r : rays)
-                {
-                    Map<Intersectable, List<Point3D>> intersectionPoints = getSceneRayIntersections(r);
+                Ray ray=scene.get_camera().constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy()
+                        , i, j, scene.get_distance(), imageWriter.getWidth(), imageWriter.getHeight());
+                    //Map<Intersectable, List<Point3D>> intersectionPoints = getSceneRayIntersections1(r);
                     // if no intersection Points - put background color
-                    if (intersectionPoints.isEmpty())
-                    {
-                        listColor.add(scene.get_background());
-                    }
-                    else
-                    {
-                    }
-                }
-                int r=0,g=0,b=0;
-                for(Color c : listColor)
+                List<Point3D> intersectionPoints=getSceneRayIntersections(ray);
+                if (intersectionPoints.isEmpty())
                 {
-                    r+=c.getColor().getRed();
-                    g+=c.getColor().getGreen();
-                    b+=c.getColor().getBlue();
+                    imageWriter.writePixel(i,j,scene.get_background().getColor());
                 }
-                imageWriter.writePixel(i, j,new java.awt.Color(r,g,b));
-                imageWriter.writeToImage();
+                else
+                {
+                    imageWriter.writePixel(i,j,calcColor(getClosestPoint(intersectionPoints)));
+                }
             }
         }
-        */
-
+        System.out.println("endddddddddddddddddddddddddddddddddddddddddddd");
         imageWriter.writeToImage();
     }
 
@@ -65,7 +51,7 @@ public class Render {
      * @param ray by which we look at the scene
      * @return A map that connects cutting points and the geometry of those cut points.
      */
-    private Map<Intersectable, List<Point3D>> getSceneRayIntersections(Ray ray) {
+    private Map<Intersectable, List<Point3D>> getSceneRayIntersections1(Ray ray) {
         List<Intersectable> geometries = scene.get_geometries().getIntersectables();
         Map<Intersectable, List<Point3D>> intersectionPoints = new HashMap<Intersectable, List<Point3D>>();
 
@@ -77,9 +63,18 @@ public class Render {
         }
         return intersectionPoints;
     }
-    public void calcColor(Point3D p)
-    {
+    private List<Point3D> getSceneRayIntersections(Ray ray) {
+        List<Intersectable> geometries = scene.get_geometries().getIntersectables();
+        List<Point3D> intersectionPoints =new ArrayList<Point3D>();
+        for (Intersectable geometry:geometries) {
+            intersectionPoints.addAll(geometry.findIntersections(ray));
+        }
+        return intersectionPoints;
+    }
 
+    public Color calcColor(Point3D p)
+    {
+        return scene.get_ambientLight().GetIntensity().getColor();
     }
     /**
      * The function returns from the list of points the closest point to the camera point
@@ -100,15 +95,21 @@ public class Render {
             }
         return minDistancePoint;
     }
+
     /**
      * A function that draws grid at a certain interval in the image.
      * @param interval between lines
      */
     public void printGrid(int interval, java.awt.Color color) {
-        for (int i = 0; i < imageWriter.getWidth(); i += interval) {
-            for (int j = 0; j < imageWriter.getHeight(); j++) {
-                imageWriter.writePixel(i, j, color);
+
+        for (int i = 0; i < imageWriter.getNx(); i ++) {
+            for (int j = 0; j < imageWriter.getNy(); j++) {
+                if (0==i%interval||0==j%interval)
+                {
+                    imageWriter.writePixel(i, j, color);
+                }
             }
         }
+        imageWriter.writeToImage();
     }
 }

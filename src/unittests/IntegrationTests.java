@@ -94,6 +94,27 @@ public class IntegrationTests {
         assertEquals(0,g.size());
     }
     @Test
+    public void intsersectionsFromCamera5S()
+    {
+        Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
+        Sphere s=new Sphere(50,new Point3D(0, 0, 100));
+        List<Ray> rays=new ArrayList<>();
+        Ray ray;
+        for (int i=0;i<1000;i++)
+            for (int j=0;j<1000;j++) {
+                ray=camera.constructRayThroughPixel(1000, 1000, j, i, 100, 1000, 1000);
+                rays.add(ray);
+            }
+        List<Point3D> g=new ArrayList<>();
+        for (Ray r:rays) {
+            for (Point3D point3D:s.findIntersections(r)) {
+                g.add(point3D);
+            }
+        }
+        System.out.println(g.size());
+        assertEquals(20968,g.size());
+    }
+    @Test
     public void intsersectionsFromCamera1P()
     {
         Camera camera = new Camera(new Point3D(0,0,-0.5), new Vector(0, 0, 1), new Vector(0, 1, 0));

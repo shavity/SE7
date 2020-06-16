@@ -65,7 +65,7 @@ public class Sphere extends RadialGeometry
 
         //d=(|L|^2-tm^2)^0.5
         double d = sqrt(pow(L.length(),2)-tm*tm);
-        System.out.println("D="+d);
+        //System.out.println("D="+d);
         double th= sqrt(pow(getRadius(),2)-pow(d,2));
         double t1=tm-th;
         double t2=tm+th;

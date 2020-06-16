@@ -42,7 +42,9 @@ public class Geometries implements Intersectable {
 
     public void add(Intersectable ... geometries)
     {
-
+        for (Intersectable i:geometries) {
+            intersectables.add(i);
+        }
     }
 
     /**
@@ -58,5 +60,12 @@ public class Geometries implements Intersectable {
 
     public List<Intersectable> getIntersectables() {
         return intersectables;
+    }
+
+    @Override
+    public String toString() {
+        return "Geometries{" +
+                "intersectables=" + intersectables +
+                '}';
     }
 }
