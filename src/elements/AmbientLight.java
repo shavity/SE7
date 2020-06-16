@@ -1,5 +1,7 @@
 package elements;
 
+//import primitives.Color;
+
 import primitives.Color;
 
 import static java.lang.Integer.min;
@@ -10,10 +12,10 @@ public class AmbientLight {
     public AmbientLight(Color color,double ka)
     {
         _intensity=color;
-        double r=min((int)(color.getColor().getRed()*ka),255);
-        double g=min((int)(color.getColor().getGreen()*ka),255);
-        double b=min((int)(color.getColor().getBlue()*ka),255);
-        _intensity.setColor(r,g,b);
+        double r=color.getColor().getRed();
+        double g=color.getColor().getGreen()*ka;
+        double b=color.getColor().getBlue()*ka;
+        _intensity.setColor(r > 255 ? 255 : r, g > 255 ? 255 : g, b > 255 ? 255 : b);
     }
     public Color GetIntensity()
     {
