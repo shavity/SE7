@@ -32,14 +32,14 @@ public class SphereTests {
         ArrayList<Point3D> arrayList = new ArrayList<>();
         arrayList.add(new Point3D(0,0,2));
         arrayList.add(new Point3D(0,0,4));
-        assertEquals(sphere.findIntsersections(ray),arrayList);
+        assertEquals(sphere.findIntersections(ray),arrayList);
     }
 
     @Test
     public void testFindIntsersections2() {
         Sphere s=new Sphere(new Point3D(20,20,0),10);
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(1,1,0));
-        List<Point3D> g=s.findIntsersections(ray);
+        List<Point3D> g=s.findIntersections(ray);
         if(g.isEmpty())
             System.out.println("is empty!");
 
@@ -54,7 +54,7 @@ public class SphereTests {
     public void testFindIntsersections3() {
         Sphere s=new Sphere(new Point3D(0,0,0),10);
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(1,1,0));
-        List<Point3D> g=s.findIntsersections(ray);
+        List<Point3D> g=s.findIntersections(ray);
         if(g.isEmpty())
             System.out.println("is empty!");
 
@@ -68,8 +68,8 @@ public class SphereTests {
         Sphere s=new Sphere(new Point3D(20,20,0),10);
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(10,1,0));
         List<Point3D> g;
-        if(s.findIntsersections(ray)!=null)
-            g=s.findIntsersections(ray);
+        if(s.findIntersections(ray)!=null)
+            g=s.findIntersections(ray);
         else
             g=new ArrayList<>();
         String a = new String();
@@ -84,11 +84,11 @@ public class SphereTests {
         Sphere sphere = new Sphere(new Point3D(1, 0, 0), 1d);
         // ============ Equivalence Partitions Tests ==============
         // TC01: Ray's line is outside the sphere (0 points)
-        assertEquals("Ray's line out of sphere", new ArrayList<Point3D>(), sphere.findIntsersections(new Ray(new Point3D(-1, 0, 0), new Vector(1, 1, 0))));
+        assertEquals("Ray's line out of sphere", new ArrayList<Point3D>(), sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(1, 1, 0))));
         // TC02: Ray starts before and crosses the sphere (2 points)
         Point3D p1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);
         Point3D p2 = new Point3D(1.53484692283495, 0.844948974278318, 0);
-        List<Point3D> result = sphere.findIntsersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 1, 0)));
+        List<Point3D> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 1, 0)));
         assertEquals("Wrong number of points", 2, result.size());
         if (result.get(0).getX().get() > result.get(1).getX().get())
             result = List.of(result.get(1), result.get(0));

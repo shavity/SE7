@@ -16,6 +16,5 @@ public interface Intersectable {
      * @param ray line that cut a shape
      * @return list of Point_3D value, where the line meets the shape
      */
-
     List<Point3D> findIntersections(Ray ray);
 }

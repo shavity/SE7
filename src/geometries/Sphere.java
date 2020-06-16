@@ -9,8 +9,7 @@ import primitives.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.StrictMath.abs;
-import static java.lang.StrictMath.pow;
+import static java.lang.StrictMath.*;
 
 /**
  * class sphere is representing a hollow ball like the atmosphere
@@ -52,20 +51,22 @@ public class Sphere extends RadialGeometry
     }
 
     @Override
-    public List<Point3D> findIntsersections(Ray ray) {
+    public List<Point3D> findIntersections(Ray ray) {
         ArrayList<Point3D> arrayList=new ArrayList<>();
         Point3D point_3D;
-        //O-P
+        //O-P0
         Vector L=new Vector(center.subtract(ray.getP()));
-        //tm=L*V
-        double tm=L.dotProduct(ray.getV());
-        if (tm<=0)
+        if((L.dotProduct(ray.getV()))/(L.length()*ray.getV().length())<0)
         {
             return arrayList;
         }
+        //tm=L*V
+        double tm=L.dotProduct(ray.getV());
+
         //d=(|L|^2-tm^2)^0.5
-        double d = pow(pow(L.length(),2)-tm*tm,0.5);
-        double th= Math.sqrt(pow(getRadius(),2)-pow(d,2));
+        double d = sqrt(pow(L.length(),2)-tm*tm);
+        System.out.println("D="+d);
+        double th= sqrt(pow(getRadius(),2)-pow(d,2));
         double t1=tm-th;
         double t2=tm+th;
         if (abs(d)>getRadius())

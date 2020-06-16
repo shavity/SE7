@@ -99,6 +99,13 @@ public class Plane implements Geometry
     @Override
     public List<Point3D> findIntersections(Ray ray)
     {
+
+        //מנסה לבדוק עם המשטח מאוחורי או לא אבל עוד לא עובד
+        if((v.dotProduct(ray.getV()))/(v.length()*ray.getV().length())<0)
+        {
+         //   return null;
+        }
+
         //if there is an intersection, it will be t * r.vector away from r.point
         double t = -1 * (v.dotProduct(ray.getP().subtract(p)))/(v.dotProduct(ray.getV()));
         //this scalar multiplication will return zero if the point P0 + t*v is on the plane (90 degree angle)

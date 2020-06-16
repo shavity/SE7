@@ -71,7 +71,7 @@ public class Camera {
         Point3D P1;
         P1 = Pc.add(vRight.scale((j - ((nX - 1)/ 2.0d)) * Rx).subtract(vUp.scale(Ry * (i - (nY -1 )/ 2.0d))));
         Ray ray=new Ray(center,new Vector(P1.subtract(center)));
-        System.out.println("R= "+ray);
+        //System.out.println("R= "+ray);
         return ray;
     }
 

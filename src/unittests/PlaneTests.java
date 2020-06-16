@@ -26,7 +26,7 @@ public class PlaneTests {
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(1,0,0));
         ArrayList<Point3D> arrayList=new ArrayList<>();
         arrayList.add(new Point3D(1,0,0));
-        assertEquals(plane.findIntsersections(ray),arrayList);
+        assertEquals(plane.findIntersections(ray),arrayList);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class PlaneTests {
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(1,1,0));
         ArrayList<Point3D> arrayList=new ArrayList<>();
         arrayList.add(new Point3D(0.5,0.5,0));
-        assertEquals(plane.findIntsersections(ray),arrayList);
+        assertEquals(plane.findIntersections(ray),arrayList);
     }
 }
 

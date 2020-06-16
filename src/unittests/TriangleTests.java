@@ -33,7 +33,7 @@ public class TriangleTests {
         Triangle t = new Triangle(x, y, z);
         Vector v = new Vector(0, -1, -3);
         Point3D point3D = new Point3D(0, 0, 0);
-        Point3D point = t.findIntsersections(new Ray(point3D, v)).get(0);
+        Point3D point = t.findIntersections(new Ray(point3D, v)).get(0);
         assertEquals(-66.6666, point.getY().get(), 0.01);
     }
 
@@ -45,10 +45,10 @@ public class TriangleTests {
         Triangle t = new Triangle(x, y, z);
         Vector v = new Vector(1, 5, 0);
         Point3D point3D = new Point3D(0, 0, 0);
-        List<Point3D> g = t.findIntsersections(new Ray(point3D, v));
+        List<Point3D> g = t.findIntersections(new Ray(point3D, v));
 
         boolean flag = false;
-        if (g.isEmpty())
+        if (g==null)
             flag = true;
 
         assertEquals(flag, true);
@@ -60,12 +60,25 @@ public class TriangleTests {
         Point3D y = new Point3D(-1, -1, -2);
         Point3D z = new Point3D(1, -1, -2);
         Triangle t = new Triangle(x, y, z);
-        List<Point3D> g = t.findIntsersections(new Ray(Point3D.ZERO, new Vector(1, 0, 0)));
+        List<Point3D> g = t.findIntersections(new Ray(Point3D.ZERO, new Vector(1, 0, 0)));
         boolean flag = true;
-        if (g.isEmpty())
+        if (g==null)
             flag = false;
 
         assertEquals(flag, false);
+    }
+   @Test
+    public void findIntersections4() {
+        Point3D x = new Point3D(0, 1, 2);
+        Point3D y = new Point3D(-1, -1, 2);
+        Point3D z = new Point3D(1, -1, 2);
+        Triangle t = new Triangle(x, y, z);
+        List<Point3D> g = t.findIntersections(new Ray(Point3D.ZERO, new Vector(0, 0, -1)));
+        boolean flag = true;
+        if (g.get(0).getZ().get()==2)
+            flag = false;
+
+        assertEquals(flag,false);
     }
 
 }

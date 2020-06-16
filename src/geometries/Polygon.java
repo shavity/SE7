@@ -121,8 +121,8 @@ public class Polygon implements Geometry {
     }
 
     @Override
-    public List<Point3D> findIntsersections(Ray ray) {
-        ArrayList<Point3D> arrayList= (ArrayList<Point3D>) _plane.findIntsersections(ray);
+    public List<Point3D> findIntersections(Ray ray) {
+        ArrayList<Point3D> arrayList= (ArrayList<Point3D>) _plane.findIntersections(ray);
         System.out.println(arrayList.size());
         if(arrayList.size()==1)
         {

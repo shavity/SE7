@@ -85,6 +85,6 @@ public abstract class RadialGeometry implements Geometry
     public abstract Vector getNormal(Point3D p);
 
     @Override
-    public abstract List<Point3D> findIntsersections(Ray ray);
+    public abstract List<Point3D> findIntersections(Ray ray);
 
 }
