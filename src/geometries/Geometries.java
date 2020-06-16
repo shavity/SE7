@@ -56,4 +56,7 @@ public class Geometries implements Intersectable {
         return null;
     }
 
+    public List<Intersectable> getIntersectables() {
+        return intersectables;
+    }
 }

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class SphereTests {
     @Test
     public void testNormal() {
-        Sphere sphere = new Sphere(new Point3D(0, 0, 0), 10);
+        Sphere sphere = new Sphere(10, new Point3D(0, 0, 0));
         /**
          * chek if get nurmal know if the point is ok (here is not ok)
          * */
@@ -27,7 +27,7 @@ public class SphereTests {
     @Test
     public void testFindIntsersections1()
     {
-        Sphere sphere=new Sphere(new Point3D(0,0,3),1);
+        Sphere sphere=new Sphere(1, new Point3D(0,0,3));
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(0,0,1));
         ArrayList<Point3D> arrayList = new ArrayList<>();
         arrayList.add(new Point3D(0,0,2));
@@ -37,7 +37,7 @@ public class SphereTests {
 
     @Test
     public void testFindIntsersections2() {
-        Sphere s=new Sphere(new Point3D(20,20,0),10);
+        Sphere s=new Sphere(10, new Point3D(20,20,0));
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(1,1,0));
         List<Point3D> g=s.findIntersections(ray);
         if(g.isEmpty())
@@ -52,7 +52,7 @@ public class SphereTests {
 
     @Test
     public void testFindIntsersections3() {
-        Sphere s=new Sphere(new Point3D(0,0,0),10);
+        Sphere s=new Sphere(10, new Point3D(0,0,0));
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(1,1,0));
         List<Point3D> g=s.findIntersections(ray);
         if(g.isEmpty())
@@ -65,7 +65,7 @@ public class SphereTests {
 
     @Test
     public void testFindIntsersections4() {
-        Sphere s=new Sphere(new Point3D(20,20,0),10);
+        Sphere s=new Sphere(10, new Point3D(20,20,0));
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(10,1,0));
         List<Point3D> g;
         if(s.findIntersections(ray)!=null)
@@ -81,7 +81,7 @@ public class SphereTests {
     }
     @Test
     public void testFindIntsersections5() {
-        Sphere sphere = new Sphere(new Point3D(1, 0, 0), 1d);
+        Sphere sphere = new Sphere(1d, new Point3D(1, 0, 0));
         // ============ Equivalence Partitions Tests ==============
         // TC01: Ray's line is outside the sphere (0 points)
         assertEquals("Ray's line out of sphere", new ArrayList<Point3D>(), sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(1, 1, 0))));

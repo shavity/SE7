@@ -12,7 +12,6 @@ import primitives.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.StrictMath.acos;
 import static org.junit.Assert.assertEquals;
 
 public class IntegrationTests {
@@ -20,7 +19,7 @@ public class IntegrationTests {
     public void intersectionsFromCamera1S()
     {
         Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, 1, 0));
-        Sphere s=new Sphere(new Point3D(0,0,3),1);
+        Sphere s=new Sphere(1, new Point3D(0,0,3));
         List<Ray> ray=new ArrayList<>();
         for (int i=0;i<3;i++)
             for (int j=0;j<3;j++) {
@@ -38,7 +37,7 @@ public class IntegrationTests {
     public void intsersectionsFromCamera2S()
     {
         Camera camera = new Camera(new Point3D(0,0,-0.5), new Vector(0, 0, 1), new Vector(0, 1, 0));
-        Sphere s=new Sphere(new Point3D(0,0,2.5),2.5);
+        Sphere s=new Sphere(2.5, new Point3D(0,0,2.5));
         List<Ray> rays=new ArrayList<>();
         Ray ray;
         for (int i=0;i<3;i++)
@@ -58,7 +57,7 @@ public class IntegrationTests {
     public void intsersectionsFromCamera3S()
     {
         Camera camera = new Camera(new Point3D(0,0,-0.5), new Vector(0, 0, 1), new Vector(0, 1, 0));
-        Sphere s=new Sphere(new Point3D(0,0,2),4);
+        Sphere s=new Sphere(4, new Point3D(0,0,2));
         List<Ray> rays=new ArrayList<>();
         Ray ray;
         for (int i=0;i<3;i++)
@@ -78,7 +77,7 @@ public class IntegrationTests {
     public void intsersectionsFromCamera4S()
     {
         Camera camera = new Camera(new Point3D(0,0,-0.5), new Vector(0, 0, 1), new Vector(0, 1, 0));
-        Sphere s=new Sphere(new Point3D(0,0,-1),0.5);
+        Sphere s=new Sphere(0.5, new Point3D(0,0,-1));
         List<Ray> rays=new ArrayList<>();
         Ray ray;
         for (int i=0;i<3;i++)

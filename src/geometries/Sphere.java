@@ -21,11 +21,11 @@ public class Sphere extends RadialGeometry
 
     /**
      * Sphere constructor
-     * @param p Point_3D the location of the center of the sphere
      * @param r double the radius of the sphere
+     * @param p Point_3D the location of the center of the sphere
      */
 
-    public Sphere (Point3D p, double r)
+    public Sphere(double r, Point3D p)
     {
         super(r);
         this.center = p;
