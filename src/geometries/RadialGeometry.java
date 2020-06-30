@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -11,8 +9,7 @@ import java.util.List;
  * a radial function in three-dimensional cartesian coordinate system
  */
 
-public abstract class RadialGeometry implements Geometry
-{
+public abstract class RadialGeometry extends Geometry {
     private double radius;
 
     /**
@@ -22,6 +19,22 @@ public abstract class RadialGeometry implements Geometry
 
     public RadialGeometry(double radius)
     {
+        this.radius = radius;
+    }
+
+    public RadialGeometry(Color _emmission, double radius) {
+        super(_emmission);
+        this.radius = radius;
+    }
+
+    public RadialGeometry(double radius, Color color)
+    {
+        this.radius = radius;
+        this._emmission=color;
+    }
+
+    public RadialGeometry(Color _emmission, Material _material, double radius) {
+        super(_emmission, _material);
         this.radius = radius;
     }
 
@@ -85,6 +98,6 @@ public abstract class RadialGeometry implements Geometry
     public abstract Vector getNormal(Point3D p);
 
     @Override
-    public abstract List<Point3D> findIntersections(Ray ray);
+    public abstract List<GeoPoint> findIntersections(Ray ray);
 
 }

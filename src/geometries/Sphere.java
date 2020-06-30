@@ -2,9 +2,7 @@
 
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +29,31 @@ public class Sphere extends RadialGeometry
         this.center = p;
     }
 
+    public Sphere(Color color, double radius,  Point3D center) {
+        super(radius, color);
+        this.center = center;
+    }
+
+    public Sphere(double radius, Color color, Point3D center) {
+        super(radius, color);
+        this.center = center;
+    }
+
+    public Sphere(Color _emmission, Material _material, double radius, Point3D center) {
+        super(_emmission, _material, radius);
+        this.center = center;
+    }
+
+    /**
+     * copy constructor
+     *
+     * @param rg to copy from
+     */
+    public Sphere(RadialGeometry rg, Point3D center) {
+        super(rg);
+        this.center = center;
+    }
+
     /**
      * Point_3D getter
      * @return center of the sphere
@@ -51,8 +74,8 @@ public class Sphere extends RadialGeometry
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        ArrayList<Point3D> arrayList=new ArrayList<>();
+    public List<GeoPoint> findIntersections(Ray ray) {
+        ArrayList<GeoPoint> arrayList=new ArrayList<>();
         Point3D point_3D;
         //O-P0
         Vector L=new Vector(center.subtract(ray.getP()));
@@ -76,15 +99,15 @@ public class Sphere extends RadialGeometry
         else if (abs(d)==getRadius() && t1>0)
         {
             point_3D=ray.getP().add(ray.getV().scale(abs(t1)));
-            arrayList.add(point_3D);
+            arrayList.add(new GeoPoint(this,point_3D));
             return arrayList;
         }
         else {
             point_3D=ray.getP().add(ray.getV().scale(abs(t1)));
-            arrayList.add(point_3D);
+            arrayList.add(new GeoPoint(this,point_3D));
             if (t2 > t1 && L.length()>getRadius()) {
                 Point3D point_3D1 = ray.getP().add(ray.getV().scale(t2));
-                arrayList.add(point_3D1);
+                arrayList.add(new GeoPoint(this,point_3D1));
                 return arrayList;
             }
         }

@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +25,27 @@ public class Triangle extends Polygon
     {
         super(p1, p2, p3);
     }
+    public Triangle(Color color,Point3D p1, Point3D p2, Point3D p3)
+    {
+        super(color,p1, p2, p3);
+    }
+    public Triangle(Color color, Material material, Point3D point3D, Point3D point3D1, Point3D point3D2) {
+        super(color,material,point3D,point3D1,point3D2);
+    }
+
+    public Triangle(Point3D... vertices) {
+        super(vertices);
+    }
+
+    public Triangle(Color color, Point3D... vertices) {
+        super(color, vertices);
+    }
+
+    public Triangle(Color color,Material material, Point3D... vertices) {
+        super(color,material,vertices);
+    }
+
+
 
     /**
      * list of Point_3D getter of the three vertices of the Triangle
@@ -53,7 +72,7 @@ public class Triangle extends Polygon
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray)
+    public List<GeoPoint> findIntersections(Ray ray)
     {
         Point3D t1 = this._vertices.get(0);
         Point3D t2 = this._vertices.get(1);
@@ -75,14 +94,14 @@ public class Triangle extends Polygon
         //n2.scale((1 / (n2.length())));                                            //normal triangle 2
         Vector n3 = v32.crossProduct(v31).normalize();
         //n3.scale((1 / (n3.length())));                                            //normal triangle 3
-        List<Point3D> list = new ArrayList<Point3D>();
-        Plane p1 = new Plane(this._plane);
+        List<GeoPoint> list = new ArrayList<GeoPoint>();
+        Plane p1 = new Plane(this._emmission,this._material,this._plane.getV(),this._plane.getP());
         list = p1.findIntersections(ray);                                   //intersections of plane
 
         if(list==null)
-            return new ArrayList<Point3D>();
+            return new ArrayList<GeoPoint>();
 
-        Point3D p = list.get(0);
+        Point3D p = list.get(0).point;
         double i1 = (p.subtract(p0)).dotProduct(n1);
         double i2 = (p.subtract(p0)).dotProduct(n2);
         double i3 = (p.subtract(p0)).dotProduct(n3);
@@ -91,8 +110,9 @@ public class Triangle extends Polygon
         //boolean f3 = !isZero(i3);
 
         if((i1>0 && i2>0 && i3>0) || (i1<0 && i2<0 && i3<0))                                //if it is inside the triangle
+        {
             return list;
-
-        return new ArrayList<Point3D>();
+        }
+        return new ArrayList<GeoPoint>();
     }                  //returns intersection points with the triangle
 }

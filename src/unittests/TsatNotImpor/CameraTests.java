@@ -1,4 +1,4 @@
-package unittests;
+package unittests.TsatNotImpor;
 
 import elements.Camera;
 import org.junit.Test;

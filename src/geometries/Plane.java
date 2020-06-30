@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Util;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +10,7 @@ import java.util.List;
  * of cartesian coordinate system
  */
 
-public class Plane implements Geometry
-{
+public class Plane extends Geometry {
     private Vector v;
     private Point3D p;
 
@@ -26,6 +22,18 @@ public class Plane implements Geometry
 
     public Plane(Vector v, Point3D p)
     {
+        this.v = v;
+        this.p = p;
+    }
+    public Plane(Color color,Vector v, Point3D p)
+    {
+        this.v = v;
+        this.p = p;
+        this._emmission=color;
+    }
+
+    public Plane(Color _emmission, Material _material, Vector v, Point3D p) {
+        super(_emmission, _material);
         this.v = v;
         this.p = p;
     }
@@ -97,7 +105,7 @@ public class Plane implements Geometry
      */
 
     @Override
-    public List<Point3D> findIntersections(Ray ray)
+    public List<GeoPoint> findIntersections(Ray ray)
     {
 
         //מנסה לבדוק עם המשטח מאוחורי או לא אבל עוד לא עובד
@@ -111,8 +119,8 @@ public class Plane implements Geometry
         //this scalar multiplication will return zero if the point P0 + t*v is on the plane (90 degree angle)
         if(Util.isZero(v.dotProduct(ray.getP().add(ray.getV().scale(t)).subtract(p))))
         {
-            List<Point3D> returnList = new ArrayList<Point3D>();
-            returnList.add(ray.getP().add(ray.getV().scale(t)));
+            List<GeoPoint> returnList = new ArrayList<GeoPoint>();
+            returnList.add(new GeoPoint(this,ray.getP().add(ray.getV().scale(t))));
             return returnList;
         }
 

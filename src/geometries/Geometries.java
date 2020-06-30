@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +11,15 @@ import java.util.List;
  * class Geometries is representing all kind of function in the space
  */
 
-
-public class Geometries implements Intersectable {
+//יכול להיות שצריך לרשת מinstersection לא בטוח קיצר
+public class Geometries extends Geometry {
 
     private List<Intersectable> intersectables;
+
+    @Override
+    public Vector getNormal(Point3D p3d) {
+        return null;
+    }
 
     /**
      * default constructor
@@ -54,7 +60,7 @@ public class Geometries implements Intersectable {
      */
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         return null;
     }
 

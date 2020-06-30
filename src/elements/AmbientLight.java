@@ -6,19 +6,10 @@ import primitives.Color;
 
 import static java.lang.Integer.min;
 
-public class AmbientLight {
-    private Color _intensity;
+public class AmbientLight extends Light{
 
     public AmbientLight(Color color,double ka)
     {
-        _intensity=color;
-        double r=color.getColor().getRed();
-        double g=color.getColor().getGreen()*ka;
-        double b=color.getColor().getBlue()*ka;
-        _intensity.setColor(r > 255 ? 255 : r, g > 255 ? 255 : g, b > 255 ? 255 : b);
-    }
-    public Color GetIntensity()
-    {
-        return _intensity;
+        super(new Color(color.getColor().getRed()*ka > 255 ? 255 : color.getColor().getRed()*ka, color.getColor().getGreen()*ka > 255 ? 255 : color.getColor().getGreen()*ka,color.getColor().getBlue()*ka > 255 ? 255 : color.getColor().getBlue()*ka));
     }
 }

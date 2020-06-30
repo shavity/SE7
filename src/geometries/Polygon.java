@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,7 @@ import static primitives.Util.isZero;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -84,6 +82,17 @@ public class Polygon implements Geometry {
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
     }
+    public Polygon(Color color,Point3D...vertices)
+    {
+        this(vertices);
+        this._emmission=color;
+    }
+    public Polygon(Color color,Material material,Point3D...vertices)
+    {
+        this(vertices);
+        this._emmission=color;
+        this._material=material;
+    }
     public boolean inSide(Ray ray, Point3D point_3D)
     {
         if (_vertices.size()==3)
@@ -121,18 +130,18 @@ public class Polygon implements Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        ArrayList<Point3D> arrayList= (ArrayList<Point3D>) _plane.findIntersections(ray);
+    public List<GeoPoint> findIntersections(Ray ray) {
+        ArrayList<GeoPoint> arrayList= (ArrayList<GeoPoint>) _plane.findIntersections(ray);
         System.out.println(arrayList.size());
         if(arrayList.size()==1)
         {
-            if(inSide(ray,arrayList.get(0)))
+            if(inSide(ray,arrayList.get(0).point))
             {
                 return arrayList;
             }
-            else return new ArrayList<Point3D>();
+            else return new ArrayList<GeoPoint>();
         }
-        else return new ArrayList<Point3D>();
+        else return new ArrayList<GeoPoint>();
     }
 }
 

@@ -1,6 +1,7 @@
-package unittests;
+package unittests.TsatNotImpor;
 
 import elements.Camera;
+import geometries.Intersectable.GeoPoint;
 import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
@@ -27,8 +28,8 @@ public class IntegrationTests {
             }
         List<Point3D> g=new ArrayList<>();
         for (Ray r:ray) {
-            for (Point3D point3D:s.findIntersections(r)) {
-                g.add(point3D);
+            for (GeoPoint point3D:s.findIntersections(r)) {
+                g.add(point3D.point);
             }
         }
         assertEquals(2,g.size());
@@ -47,8 +48,8 @@ public class IntegrationTests {
             }
         List<Point3D> g=new ArrayList<>();
         for (Ray r:rays) {
-            for (Point3D point3D:s.findIntersections(r)) {
-                g.add(point3D);
+            for (GeoPoint point3D:s.findIntersections(r)) {
+                g.add(point3D.point);
             }
         }
         assertEquals(18,g.size());
@@ -67,8 +68,8 @@ public class IntegrationTests {
             }
         List<Point3D> g=new ArrayList<>();
         for (Ray r:rays) {
-            for (Point3D point3D:s.findIntersections(r)) {
-                g.add(point3D);
+            for (GeoPoint point3D:s.findIntersections(r)) {
+                g.add(point3D.point);
             }
         }
         assertEquals(9,g.size());
@@ -87,8 +88,8 @@ public class IntegrationTests {
             }
         List<Point3D> g=new ArrayList<>();
         for (Ray r:rays) {
-            for (Point3D point3D:s.findIntersections(r)) {
-                g.add(point3D);
+            for (GeoPoint point3D:s.findIntersections(r)) {
+                g.add(point3D.point);
             }
         }
         assertEquals(0,g.size());
@@ -107,8 +108,8 @@ public class IntegrationTests {
             }
         List<Point3D> g=new ArrayList<>();
         for (Ray r:rays) {
-            for (Point3D point3D:s.findIntersections(r)) {
-                g.add(point3D);
+            for (GeoPoint point3D:s.findIntersections(r)) {
+                g.add(point3D.point);
             }
         }
         System.out.println(g.size());
@@ -129,8 +130,8 @@ public class IntegrationTests {
         List<Point3D> g=new ArrayList<>();
         for (Ray r:rays) {
             if(plane.findIntersections(r)!=null)
-            for (Point3D point3D:plane.findIntersections(r)) {
-                g.add(point3D);
+            for (GeoPoint point3D:plane.findIntersections(r)) {
+                g.add(point3D.point);
             }
         }
         assertEquals(9,g.size());
@@ -150,8 +151,8 @@ public class IntegrationTests {
         List<Point3D> g=new ArrayList<>();
         for (Ray r:rays) {
             if(plane.findIntersections(r)!=null)
-                for (Point3D point3D:plane.findIntersections(r)) {
-                g.add(point3D);
+                for (GeoPoint point3D:plane.findIntersections(r)) {
+                g.add(point3D.point);
             }
         }
         assertEquals(9,g.size());
@@ -174,8 +175,8 @@ public class IntegrationTests {
             if(plane.findIntersections(r)!=null) {
                 System.out.println(r);
                 System.out.println(plane.findIntersections(r));
-                for (Point3D point3D : plane.findIntersections(r)) {
-                    g.add(point3D);
+                for (GeoPoint point3D : plane.findIntersections(r)) {
+                    g.add(point3D.point);
                 }
             }
         }
@@ -197,8 +198,8 @@ public class IntegrationTests {
         List<Point3D> g=new ArrayList<>();
         for (Ray r:rays) {
             if(triangle.findIntersections(r)!=null) {
-                for (Point3D point3D : triangle.findIntersections(r)) {
-                    g.add(point3D);
+                for (GeoPoint point3D : triangle.findIntersections(r)) {
+                    g.add(point3D.point);
                 }
             }
         }
@@ -219,8 +220,8 @@ public class IntegrationTests {
         List<Point3D> g=new ArrayList<>();
         for (Ray r:rays) {
             if(triangle.findIntersections(r)!=null) {
-                for (Point3D point3D : triangle.findIntersections(r)) {
-                    g.add(point3D);
+                for (GeoPoint point3D : triangle.findIntersections(r)) {
+                    g.add(point3D.point);
                 }
             }
         }
@@ -241,12 +242,11 @@ public class IntegrationTests {
         List<Point3D> g=new ArrayList<>();
         for (Ray r:rays) {
             if(plane.findIntersections(r)!=null) {
-                for (Point3D point3D : plane.findIntersections(r)) {
-                    g.add(point3D);
+                for (GeoPoint point3D : plane.findIntersections(r)) {
+                    g.add(point3D.point);
                 }
             }
         }
         assertEquals(0,g.size());
     }
-
 }

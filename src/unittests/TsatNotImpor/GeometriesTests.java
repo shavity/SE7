@@ -1,4 +1,4 @@
-package unittests;
+package unittests.TsatNotImpor;
 
 public class GeometriesTests {
 }

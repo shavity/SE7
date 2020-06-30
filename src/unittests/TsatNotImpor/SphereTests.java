@@ -1,5 +1,8 @@
-package unittests;
+package unittests.TsatNotImpor;
 
+import geometries.Intersectable;
+
+import geometries.Intersectable.GeoPoint;
 import geometries.Sphere;
 import org.junit.Test;
 import primitives.Point3D;
@@ -39,35 +42,35 @@ public class SphereTests {
     public void testFindIntsersections2() {
         Sphere s=new Sphere(10, new Point3D(20,20,0));
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(1,1,0));
-        List<Point3D> g=s.findIntersections(ray);
+        List<GeoPoint> g=s.findIntersections(ray);
         if(g.isEmpty())
             System.out.println("is empty!");
 
         System.out.println(g.get(0));
         System.out.println(g.get(1));
 
-        assertEquals(12.93,g.get(0).getX().get(),0.01);
-        assertEquals(27.07,g.get(1).getX().get(),0.01);
+        assertEquals(12.93,g.get(0).point.getX().get(),0.01);
+        assertEquals(27.07,g.get(1).point.getX().get(),0.01);
     }
 
     @Test
     public void testFindIntsersections3() {
         Sphere s=new Sphere(10, new Point3D(0,0,0));
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(1,1,0));
-        List<Point3D> g=s.findIntersections(ray);
+        List<GeoPoint> g=s.findIntersections(ray);
         if(g.isEmpty())
             System.out.println("is empty!");
 
         System.out.println(g.get(0));
 
-        assertEquals(7.07,g.get(0).getX().get(),0.01);
+        assertEquals(7.07,g.get(0).point.getX().get(),0.01);
     }
 
     @Test
     public void testFindIntsersections4() {
         Sphere s=new Sphere(10, new Point3D(20,20,0));
         Ray ray=new Ray(new Point3D(0,0,0), new Vector(10,1,0));
-        List<Point3D> g;
+        List<GeoPoint> g;
         if(s.findIntersections(ray)!=null)
             g=s.findIntersections(ray);
         else
@@ -88,9 +91,9 @@ public class SphereTests {
         // TC02: Ray starts before and crosses the sphere (2 points)
         Point3D p1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);
         Point3D p2 = new Point3D(1.53484692283495, 0.844948974278318, 0);
-        List<Point3D> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 1, 0)));
+        List<GeoPoint> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0), new Vector(3, 1, 0)));
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).getX().get() > result.get(1).getX().get())
+        if (result.get(0).point.getX().get() > result.get(1).point.getX().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Ray crosses sphere", List.of(p1, p2), result);
     }

@@ -1,5 +1,6 @@
-package unittests;
+package unittests.TsatNotImpor;
 
+import geometries.Intersectable.GeoPoint;
 import geometries.Triangle;
 import org.junit.Test;
 import primitives.Point3D;
@@ -33,7 +34,7 @@ public class TriangleTests {
         Triangle t = new Triangle(x, y, z);
         Vector v = new Vector(0, -1, -3);
         Point3D point3D = new Point3D(0, 0, 0);
-        Point3D point = t.findIntersections(new Ray(point3D, v)).get(0);
+        Point3D point = t.findIntersections(new Ray(point3D, v)).get(0).point;
         assertEquals(-66.6666, point.getY().get(), 0.01);
     }
 
@@ -45,7 +46,7 @@ public class TriangleTests {
         Triangle t = new Triangle(x, y, z);
         Vector v = new Vector(1, 5, 0);
         Point3D point3D = new Point3D(0, 0, 0);
-        List<Point3D> g = t.findIntersections(new Ray(point3D, v));
+        List<GeoPoint> g = t.findIntersections(new Ray(point3D, v));
 
         boolean flag = false;
         if (g==null)
@@ -60,7 +61,7 @@ public class TriangleTests {
         Point3D y = new Point3D(-1, -1, -2);
         Point3D z = new Point3D(1, -1, -2);
         Triangle t = new Triangle(x, y, z);
-        List<Point3D> g = t.findIntersections(new Ray(Point3D.ZERO, new Vector(1, 0, 0)));
+        List<GeoPoint> g = t.findIntersections(new Ray(Point3D.ZERO, new Vector(1, 0, 0)));
         boolean flag = true;
         if (g==null)
             flag = false;
@@ -73,9 +74,9 @@ public class TriangleTests {
         Point3D y = new Point3D(-1, -1, 2);
         Point3D z = new Point3D(1, -1, 2);
         Triangle t = new Triangle(x, y, z);
-        List<Point3D> g = t.findIntersections(new Ray(Point3D.ZERO, new Vector(0, 0, -1)));
+        List<GeoPoint> g = t.findIntersections(new Ray(Point3D.ZERO, new Vector(0, 0, -1)));
         boolean flag = true;
-        if (g.get(0).getZ().get()==2)
+        if (g.get(0).point.getZ().get()==2)
             flag = false;
 
         assertEquals(flag,false);
