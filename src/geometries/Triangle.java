@@ -54,22 +54,34 @@ public class Triangle extends Polygon
 
     public ArrayList<Point3D> getPoints()
     {
-        ArrayList<Point3D> list=new ArrayList<Point3D>();
+        ArrayList<Point3D> list= new ArrayList<>(); // <Point3D>
         list.add(this._vertices.get(0));
         list.add(this._vertices.get(1));
         list.add(this._vertices.get(2));
         return list;
     }
 
+    /**
+     * Calculating the normal vector in some point on the Triangle
+     * @param point The point
+     * @return The normal vector in the point
+     */
+
     @Override
     public Vector getNormal(Point3D point) {
-        /**
-         * בעיקון לא צריך לעשות בדיקה שהנקודה תקינה
-         * */
+
+        //there is no need of checking after the point
+
         Vector v1 = this._vertices.get(1).subtract(this._vertices.get(0));
         Vector v2 = this._vertices.get(2).subtract(this._vertices.get(0));
         return (v1.crossProduct(v2).normalize());
     }
+
+    /**
+     * Finds all the points of intersection of the given ray with the Triangle
+     * @param ray The ray with which the cutting with the Triangle is calculated
+     * @return All the points of intersection of the ray with the Triangle
+     */
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray)
@@ -94,12 +106,12 @@ public class Triangle extends Polygon
         //n2.scale((1 / (n2.length())));                                            //normal triangle 2
         Vector n3 = v32.crossProduct(v31).normalize();
         //n3.scale((1 / (n3.length())));                                            //normal triangle 3
-        List<GeoPoint> list = new ArrayList<GeoPoint>();
+        List<GeoPoint> list; // = new ArrayList<GeoPoint>();
         Plane p1 = new Plane(this._emmission,this._material,this._plane.getV(),this._plane.getP());
         list = p1.findIntersections(ray);                                   //intersections of plane
 
         if(list==null)
-            return new ArrayList<GeoPoint>();
+            return new ArrayList<>();  //<GeoPoint>
 
         Point3D p = list.get(0).point;
         double i1 = (p.subtract(p0)).dotProduct(n1);
@@ -113,6 +125,6 @@ public class Triangle extends Polygon
         {
             return list;
         }
-        return new ArrayList<GeoPoint>();
+        return new ArrayList<>();  //<GeoPoint>
     }                  //returns intersection points with the triangle
 }

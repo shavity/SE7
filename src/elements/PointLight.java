@@ -9,6 +9,15 @@ public class PointLight extends Light implements LightSource {
     protected Point3D position;
     protected double kc, kl ,kq;
 
+    /**
+     * constructor point light
+     * @param _intensity color of light
+     * @param position - location
+     * @param kc factor kc
+     * @param kl factor kl
+     * @param kq factor kq
+     */
+
     public PointLight(Color _intensity, Point3D position, double kc, double kl, double kq) {
         super(_intensity);
         this.position = position;
@@ -16,6 +25,12 @@ public class PointLight extends Light implements LightSource {
         this.kl = kl;
         this.kq = kq;
     }
+
+    /**
+     * get intensity of the light in some point
+     * @param p - the point we check the light in
+     * @return - the calculation of the color
+     */
 
     @Override
     public Color getIntensity(Point3D p) {
@@ -26,6 +41,12 @@ public class PointLight extends Light implements LightSource {
 
         return new Color(r > 255 ? 255 : r,g > 255 ? 255 : g, b> 255 ? 255 : b);
     }
+
+    /**
+     * Get the direction of the light
+     * @param p - point
+     * @return The direction of the ligh
+     */
 
     @Override
     public Vector getL(Point3D p) {
