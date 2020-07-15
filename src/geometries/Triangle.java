@@ -125,6 +125,6 @@ public class Triangle extends Polygon
         {
             return list;
         }
-        return new ArrayList<>();  //<GeoPoint>
+        return new ArrayList<>();  // <GeoPoint>
     }                  //returns intersection points with the triangle
 }
