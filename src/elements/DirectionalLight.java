@@ -4,7 +4,15 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * the class DirectionalLight is representing
+ */
+
 public class DirectionalLight extends Light implements LightSource {
+
+    /**
+     * like name like presentation 'direction' = direction
+     */
 
     private Vector direction;
 
@@ -50,4 +58,14 @@ public class DirectionalLight extends Light implements LightSource {
     public Vector getL(Point3D p) {
         return direction;
     }
+
+    /**
+	 * @param point the point of the geometry
+	 * @return the distance between the point and the directionalLight
+	 */
+
+    @Override
+    public double getDistance(Point3D point) { return Double.POSITIVE_INFINITY; }
+
+
 }

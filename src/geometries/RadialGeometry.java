@@ -14,7 +14,7 @@ public abstract class RadialGeometry extends Geometry {
 
     /**
      * RadialGeometry constructor
-     * @param radius of the function
+     * @param radius of the shape
      */
 
     public RadialGeometry(double radius)
@@ -27,11 +27,24 @@ public abstract class RadialGeometry extends Geometry {
         this.radius = radius;
     }
 
+    /**
+     * constructor
+     * @param radius of the shape
+     * @param color of the shape
+     */
+
     public RadialGeometry(double radius, Color color)
     {
         this.radius = radius;
         this._emmission=color;
     }
+
+    /**
+     *
+     * @param _emmission of the shape
+     * @param _material of the shape
+     * @param radius of the shape
+     */
 
     public RadialGeometry(Color _emmission, Material _material, double radius) {
         super(_emmission, _material);
@@ -93,6 +106,11 @@ public abstract class RadialGeometry extends Geometry {
 
         return Double.compare(that.radius, radius) == 0;
     }
+
+    /**
+     * @param p Point3D type
+     * @return vertical vector to the radial geometry at p
+     */
 
     @Override
     public abstract Vector getNormal(Point3D p);

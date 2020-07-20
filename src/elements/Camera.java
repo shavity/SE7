@@ -3,12 +3,16 @@ package elements;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+import primitives.Util;
 
 /**
- * class Camera is representing a tool to get view from
+ * class Camera is representing a tool to get a view from
  */
 
 public class Camera {
+
+    // should they by private all the next attributes???
+
     Point3D center;
     Vector vUp;
     Vector vRight;
@@ -31,7 +35,8 @@ public class Camera {
         }
         else
         {
-            //חשבתי שצריך לעשת THEOW אבל ראיתי בטסטים של המצלמה שלא צריך אז לא יודע
+            // throw new IllegalArgumentException("the vectors must be orthogonal");
+            // חשבתי שצריך לעשת THEOW אבל ראיתי בטסטים של המצלמה שלא צריך אז לא יודע
             vRight=vTo.crossProduct(vUp);
         }
     }
@@ -49,6 +54,7 @@ public class Camera {
      */
     public Ray constructRayThroughPixel (int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight)
     {
+
         /*
         Point3D Pc = center.add(vTo.scale(screenDistance));
         double Rx = (screenWidth / nX);
@@ -64,6 +70,7 @@ public class Camera {
         Ray ray=new Ray(center,new Vector(P));
         System.out.println("R= "+ray);
         */
+
         Point3D Pc = center.add(vTo.scale(screenDistance));
         vRight = vTo.crossProduct(vUp);
         double Rx = (screenWidth / nX);
@@ -73,6 +80,36 @@ public class Camera {
         Ray ray=new Ray(center,new Vector(P1.subtract(center)));
         //System.out.println("R= "+ray);
         return ray;
+
+        /*
+        if (Util.isZero(screenDistance))
+		{
+			throw new IllegalArgumentException("distance cannot be 0");
+		}
+
+		Point3D Pc = new Point3D(_p0.add(_vTo.scale(screenDistance)));
+
+		double Ry = screenHeight/nY;
+		double Rx = screenWidth/nX;
+
+		double yi =  ((i - nY/2d)*Ry + Ry/2);
+		double xj=   ((j - nX/2d)*Rx + Rx/2);
+
+		Point3D Pij = new Point3D(Pc);
+
+		if (! Util.isZero(xj))
+		{
+			Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+		}
+		if (! Util.isZero(yi))
+		{
+			Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+		}
+
+		Vector Vij = new Vector(Pij.subtract(_p0));
+
+		return new Ray(_p0,Vij);
+         */
     }
 
     /**

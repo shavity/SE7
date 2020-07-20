@@ -3,6 +3,7 @@ package elements;
 import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
+import primitives.Util;
 
 import static java.lang.Math.max;
 
@@ -49,7 +50,15 @@ public class SpotLight extends PointLight {
      */
 
     @Override
-    public Vector getL(Point3D p) {
-        return direction;
+    public Vector getL(Point3D p) { return super.getL(p); }
+
+    /**
+     * @param p the point of the geometry
+     * @return the distance between the point and the spotLight
+     */
+
+    @Override
+    public double getDistance(Point3D p) {
+        return super.getDistance(p);
     }
 }

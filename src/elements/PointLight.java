@@ -43,9 +43,16 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * Get the direction of the light
-     * @param p - point
-     * @return The direction of the ligh
+     * @param p Point3D type
+     * @return the length between p to the light source
+     */
+
+    @Override
+    public double getDistance(Point3D p) { return p.distance(position); }
+
+    /**
+     * @param p Point3D type
+     * @return the direction of the light
      */
 
     @Override

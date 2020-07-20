@@ -2,7 +2,16 @@ package elements;
 
 import primitives.Color;
 
+/**
+ * the class Light is representing light
+ * you have to admit, you didn't see that coming
+ */
+
 abstract class Light {
+
+    /**
+     * light's intensity
+     */
 
     protected Color _intensity;
 
@@ -12,7 +21,7 @@ abstract class Light {
      */
 
     public Light(Color _intensity) {
-        this._intensity = _intensity;
+        this._intensity = new Color(_intensity);
     }
 
     /**

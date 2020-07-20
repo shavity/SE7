@@ -6,6 +6,11 @@ import primitives.Color;
 
 import static java.lang.Integer.min;
 
+/**
+ * Ambient light is a source of ambient light and represents constant intensity and a constant color light source that affects all the objects in the scene equally.
+ *
+ */
+
 public class AmbientLight extends Light{
 
     /**

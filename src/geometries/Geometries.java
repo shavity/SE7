@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 //יכול להיות שצריך לרשת מinstersection לא בטוח קיצר
-public class Geometries extends Geometry {
+public class Geometries extends Geometry implements Intersectable {
 
     private List<Intersectable> intersectables;
 
@@ -26,7 +26,7 @@ public class Geometries extends Geometry {
      */
 
     public Geometries() {
-        this.intersectables = new ArrayList<>();
+        this.intersectables = new ArrayList<Intersectable>();
     }
 
     /**
@@ -61,17 +61,37 @@ public class Geometries extends Geometry {
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        return null;
+        List<GeoPoint> intersections = null;
+
+        for (Intersectable i : intersectables) {
+            List<GeoPoint> tempIntersections = i.findIntersections(ray);
+            if (tempIntersections != null) {
+                if (intersections == null)
+                    intersections = new ArrayList<GeoPoint>();
+                intersections.addAll(tempIntersections);
+            }
+        }
+        return intersections;
     }
+
+    /**
+     * intersectable getter function
+     * @return intersectable
+     */
 
     public List<Intersectable> getIntersectables() {
         return intersectables;
     }
 
+    /**
+     * representing as a string
+     * @return string of intersectable
+     */
+
     @Override
     public String toString() {
         return "Geometries{" +
-                "intersectables=" + intersectables +
+                "intersectables = " + intersectables +
                 '}';
     }
 }
