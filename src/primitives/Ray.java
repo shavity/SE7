@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.*;
+
 /**
  * the class 'Ray' is representing a ray that have direction and point that place it in the magnitude
  */
@@ -60,6 +62,23 @@ public class Ray
     public void setP(Point3D p)
     {
         this.p = p;
+    }
+
+    /**
+     * @param scal to multiply and add it to our point
+     * @return new point = p + v.scale(scal)
+     */
+
+    public Point3D get_VP(double scal)
+    {
+        if(isZero(scal))
+        {
+            return this.p;
+        }
+        else
+        {
+            return new Point3D(p.add(v.scale(scal)));
+        }
     }
 
     /**

@@ -29,7 +29,5 @@ abstract class Light {
      * @return color of light
      */
 
-    public Color get_intensity() {
-        return _intensity;
-    }
+    public Color get_intensity() { return new Color(_intensity); }    // because its *protected* and we don't want that it will be change
 }

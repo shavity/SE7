@@ -10,11 +10,17 @@ import primitives.Vector;
  */
 
 public abstract class Geometry implements Intersectable {
+
     protected Color _emmission;
     protected Material _material;
     public abstract Vector getNormal(Point3D p3d);
     //List<Point_3D> findIntersections(Ray ray);
 
+    /**
+     * constructors dude
+     * @param _emmission color
+     * @param _material of the geometry
+     */
 
     public Geometry(Color _emmission, Material _material) {
         this._emmission = _emmission;
@@ -29,9 +35,17 @@ public abstract class Geometry implements Intersectable {
         this._emmission = _emmission;
     }
 
+    /**
+     * @return the color
+     */
+
     public Color get_emmission() {
         return _emmission;
     }
+
+    /**
+     * @return the material
+     */
 
     public Material get_material() {
         return _material;

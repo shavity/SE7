@@ -1,5 +1,3 @@
-
-
 package geometries;
 
 import primitives.*;
@@ -27,17 +25,36 @@ public class Sphere extends RadialGeometry
     {
         super(r);
         this.center = p;
+        this._material = new Material(0, 0, 0);
     }
+
+    /**
+     * constructor
+     * @param color of the sphere
+     * @param radius of the sphere
+     * @param center of the sphere
+     */
 
     public Sphere(Color color, double radius,  Point3D center) {
         super(radius, color);
         this.center = center;
+        this._material = new Material(0, 0, 0);
     }
 
+    /*
     public Sphere(double radius, Color color, Point3D center) {
         super(radius, color);
         this.center = center;
     }
+    */
+
+    /**
+     * constructor
+     * @param _emmission the color of the sphere
+     * @param _material of the sphere
+     * @param radius of the sphere
+     * @param center of the sphere
+     */
 
     public Sphere(Color _emmission, Material _material, double radius, Point3D center) {
         super(_emmission, _material, radius);
@@ -46,7 +63,6 @@ public class Sphere extends RadialGeometry
 
     /**
      * copy constructor
-     *
      * @param rg to copy from
      */
     public Sphere(RadialGeometry rg, Point3D center) {
@@ -64,14 +80,22 @@ public class Sphere extends RadialGeometry
         return center;
     }
 
+    /**
+     * @param p Point3D type
+     * @return 90 degrees vector to the sphere from the center of the sphere, vector.len = 1
+     */
+
     @Override
     public Vector getNormal(Point3D p)
     {
-        /**
-         * בעיקון לא צריך לעשות בדיקה שהנקודה תקינה
-         */
-         return new Vector(p.subtract(center));
+         return new Vector(p.subtract(center).normalize());
     }
+
+    /**
+     *
+     * @param ray that get out of the sphere
+     * @return point that intersections
+     */
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {

@@ -12,20 +12,25 @@ import java.util.Objects;
 
 public interface Intersectable {
 
-
-
     /**
-     *
      * @param ray line that cut a shape
      * @return list of Point_3D value, where the line meets the shape
      */
     List<GeoPoint> findIntersections(Ray ray);
 
-
+    /**
+     * class GeoPoint is take all of the points that in the geometry
+     */
 
     public static class GeoPoint {
         public Geometry geometry;
         public Point3D point;
+
+        /**
+         * constructor
+         * @param geometry which kind of geometry
+         * @param point as its name - point
+         */
 
         public GeoPoint(Geometry geometry, Point3D point) {
             this.geometry = geometry;

@@ -1,8 +1,8 @@
 package geometries;
 
 import primitives.*;
-
 import java.util.ArrayList;
+import static primitives.Util.*;
 import java.util.List;
 
 /**
@@ -25,12 +25,28 @@ public class Plane extends Geometry {
         this.v = v;
         this.p = p;
     }
+
+    /**
+     * constructor
+     * @param color
+     * @param v
+     * @param p
+     */
+
     public Plane(Color color,Vector v, Point3D p)
     {
         this.v = v;
         this.p = p;
         this._emmission=color;
     }
+
+    /**
+     * constructor
+     * @param _emmission
+     * @param _material
+     * @param v
+     * @param p
+     */
 
     public Plane(Color _emmission, Material _material, Vector v, Point3D p) {
         super(_emmission, _material);
@@ -92,6 +108,12 @@ public class Plane extends Geometry {
         this.p = p;
     }
 
+    /**
+     *
+     * @param p3d no need actually
+     * @return 90 degrees vector, len = 1
+     */
+
     @Override
     public Vector getNormal(Point3D p3d)
     {
@@ -107,23 +129,28 @@ public class Plane extends Geometry {
     @Override
     public List<GeoPoint> findIntersections(Ray ray)
     {
-
-        //מנסה לבדוק עם המשטח מאוחורי או לא אבל עוד לא עובד
-        if((v.dotProduct(ray.getV()))/(v.length()*ray.getV().length())<0)
+        Vector vec;
+        try
         {
-         //   return null;
+            vec = new Vector(p.subtract(ray.getP()));
+        }
+        catch (IllegalArgumentException e)
+        {
+            return null; // ray starts from point Q - no intersections
         }
 
-        //if there is an intersection, it will be t * r.vector away from r.point
-        double t = -1 * (v.dotProduct(ray.getP().subtract(p)))/(v.dotProduct(ray.getV()));
-        //this scalar multiplication will return zero if the point P0 + t*v is on the plane (90 degree angle)
-        if(Util.isZero(v.dotProduct(ray.getP().add(ray.getV().scale(t)).subtract(p))))
+        double nv = v.dotProduct(ray.getV());
+
+        if (isZero(nv)) // ray is parallel to the plane - no intersections
+            return null;
+
+        double s = alignZero(v.dotProduct(vec) / nv);
+
+        if(s <= 0)
         {
-            List<GeoPoint> returnList = new ArrayList<GeoPoint>();
-            returnList.add(new GeoPoint(this,ray.getP().add(ray.getV().scale(t))));
-            return returnList;
+            return null;
         }
 
-        return null;
+        return List.of(new GeoPoint(this, ray.get_VP(s)));
     }
 }

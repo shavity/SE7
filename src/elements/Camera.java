@@ -35,7 +35,7 @@ public class Camera {
         }
         else
         {
-            // throw new IllegalArgumentException("the vectors must be orthogonal");
+            // throw new IllegalArgumentException("the vectors needs to be orthogonal");
             // חשבתי שצריך לעשת THEOW אבל ראיתי בטסטים של המצלמה שלא צריך אז לא יודע
             vRight=vTo.crossProduct(vUp);
         }
