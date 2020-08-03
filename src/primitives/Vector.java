@@ -17,8 +17,7 @@ public class Vector
     {
         if(v.equals(Point3D.ZERO))
         {
-            //מוזר מאוד
-            //throw new IllegalArgumentException("Error - Vector 0");
+            throw new IllegalArgumentException("Error - Vector 0");
         }
 
         this.v = new Point3D(v);
@@ -103,7 +102,7 @@ public class Vector
 
     /**
      * calculate new Vector to combine two Vectors as one
-     * @params vec second vector to add it to ours
+     * @param vec second vector to add it to ours
      * @return the sum of this two vectors (Vector)
      */
 
@@ -114,7 +113,7 @@ public class Vector
 
     /**
      * calculate the differance between two Vectors
-     * @params vec secod vector to calc the differane
+     * @param vec secod vector to calc the differane
      * @return differance (Vector)
      */
 
@@ -142,7 +141,7 @@ public class Vector
     /**
      * calculate a number out of two vectors to get the value that comes out of '*' multiplication
      * @param vec Vector to multiply with
-     * @retun the multiplication (double)
+     * @return the multiplication (double)
      */
 
     public double dotProduct (Vector vec)
@@ -201,7 +200,7 @@ public class Vector
 
     /**
      * calculate a new vector that will be the normal vector of 'this' Vector
-     * @return Vector as normal
+     * @return normal form of the vector
      */
 
     public Vector normalized()

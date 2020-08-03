@@ -1,15 +1,17 @@
 package renderer;
 
+import elements.*;
 import elements.LightSource;
+
 import geometries.Intersectable;
 import geometries.Intersectable.GeoPoint;
 import geometries.Plane;
 import geometries.Polygon;
 import geometries.Triangle;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Color;
-import primitives.Vector;
+
+import primitives.*;
+import static primitives.Util.*;
+
 import scene.Scene;
 
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class Render {
                 }
             }
         }
-        System.out.println("endddddddddddddddddddddddddddddddddddddddddddd");
+        System.out.println("end");
     }
     public void writeToImage()
     {

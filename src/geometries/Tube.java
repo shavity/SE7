@@ -62,6 +62,16 @@ public class Tube extends RadialGeometry
         return n;
     }
 
+    /**
+     * @return the tube fields values
+     */
+
+    @Override
+    public String toString() {
+        return "[ " + super.toString() + "Tube [_axisRay=" + center + "]]";
+    }
+
+
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {

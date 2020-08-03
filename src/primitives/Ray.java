@@ -65,19 +65,19 @@ public class Ray
     }
 
     /**
-     * @param scal to multiply and add it to our point
-     * @return new point = p + v.scale(scal)
+     * @param scalar to multiply and add it to our point
+     * @return new point = p + v.scale(scalar)
      */
 
-    public Point3D get_VP(double scal)
+    public Point3D get_VP(double scalar)
     {
-        if(isZero(scal))
+        if(isZero(scalar))
         {
             return this.p;
         }
         else
         {
-            return new Point3D(p.add(v.scale(scal)));
+            return new Point3D(p.add(v.scale(scalar)));
         }
     }
 
