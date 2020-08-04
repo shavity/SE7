@@ -11,6 +11,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * the class Scene representing scene with geo, light and so on
+ */
+
 public class Scene {
     private String _name;
     private Color _background;
@@ -20,31 +24,52 @@ public class Scene {
     private double _distance;
     private List<LightSource> _lights;
 
+    /**
+     * constructor
+     * @param _Name of scene
+     */
+
     public Scene(String _Name) {
         this._name = _Name;
         this._geometries=new Geometries();
         this._lights=new LinkedList<LightSource>();
     }
 
+    /**
+     * add the param to scene's geo list
+     * @param geometries group of geo
+     */
+
     public void addGeometries(Intersectable ... geometries) {
         for (Intersectable intersectable:geometries) {
             _geometries.add(intersectable);
         }
     }
+
+    /**
+     * add lights to scene's lights list
+     * @param lights to insert
+     */
+
     public void addLights(LightSource... lights) {
         _lights.addAll(Arrays.asList(lights));
     }
 
+    /**
+     * getter
+     * @return list of lights
+     */
+
     public List<LightSource> get_lights() {
-        return _lights;
+        return new LinkedList<LightSource>(_lights);
     }
 
     public void setName(String _Name) {
         this._name = _Name;
     }
 
-    public void setBackground(Color _beckground) {
-        this._background = _beckground;
+    public void setBackground(Color _background) {
+        this._background = _background;
     }
 
     public void setAmbientLight(AmbientLight _ambientLight) {
@@ -63,34 +88,69 @@ public class Scene {
         this._distance = _distance;
     }
 
+    /**
+     * getter
+     * @return name of scene
+     */
+
     public String get_Name() {
         return _name;
     }
+
+    /**
+     * getter
+     * @return background color
+     */
 
     public Color get_background() {
         return _background;
     }
 
+    /**
+     * getter
+     * @return ambient light of scene
+     */
+
     public AmbientLight get_ambientLight() {
-        return _ambientLight;
+        return new AmbientLight(_ambientLight.get_intensity(), 1);
     }
+
+    /**
+     * getter
+     * @return list of geometries that introduces in the scene
+     */
 
     public Geometries get_geometries() {
         return _geometries;
     }
 
+    /**
+     * getter
+     * @return camera
+     */
+
     public Camera get_camera() {
-        return _camera;
+        return new Camera(_camera.getPoint_3D(), _camera.getvTo(), _camera.getvUp());
     }
+
+    /**
+     * getter
+     * @return distance between camera and scene's screen
+     */
 
     public double get_distance() {
         return _distance;
     }
 
+    /**
+     * print all geometries of scene
+     * @return all geometries of scene as one long string
+     */
+
     @Override
     public String toString() {
         return "Scene{" +
-                "_geometries=" + _geometries +
+                "_geometries = " + _geometries +
                 '}';
     }
 }
