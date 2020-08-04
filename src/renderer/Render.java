@@ -19,9 +19,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * the class Render is showing all functions to render the image
+ */
+
 public class Render {
+
+    private static final double DELTA = 0.1;
     private ImageWriter imageWriter;
     private Scene scene;
+
+    /**
+     * constructor
+     * @param imageWriter as its name
+     * @param scene1 scene
+     */
 
     public Render(ImageWriter imageWriter,Scene scene1)
     {
@@ -32,6 +44,7 @@ public class Render {
     /**
      * A function that creates the scene given the geometries and shapes into an image file.
      */
+
     public void renderImage() {
         //Passes each pixel in the image, and checks which color should be put, if it has a cut point - finds using the calColor function. If not - painting with the color of the background.
         for (int i = 0; i < imageWriter.getNx(); i++) {
@@ -139,6 +152,49 @@ public class Render {
             }
         }
         return minDistancePoint;
+    }
+
+    /**
+     * @param light - light source
+     * @param l - light direction
+     * @param n - geometry normal
+     * @param gp - the point of the geometry
+     * @return if the point is not shaded
+     */
+    private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint gp) {
+
+        Vector lightDirection = l.scale(-1);
+        Vector delta = n.scale(n.dotProduct(lightDirection)>0?DELTA:-DELTA);
+        Point3D p = gp.point.add(delta);
+
+        double temp = n.dotProduct(lightDirection);
+        double d = DELTA;
+        if (temp <= 0)
+        {
+            d = -d;
+        }
+        Vector deltaNormal = n.scale(d);
+
+        p = p.add(deltaNormal);
+        Vector direction = new Vector(lightDirection).normalize();
+
+        Ray lightRay = new Ray(p, direction);
+
+        List<GeoPoint> intersections = scene.get_geometries().findIntersections(lightRay);
+
+        if (intersections == null)
+        {
+            return true;
+        }
+
+        double lightDistance = light.getDistance(gp.point);
+
+        for (GeoPoint g : intersections) {
+            if (alignZero(g.point.distance(gp.point) - lightDistance) <= 0 /*&& gp._geometry.get_material().get_kT() == 0*/)
+                return false;
+        }
+        return true;
+
     }
 
     /**
