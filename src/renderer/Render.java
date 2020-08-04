@@ -25,7 +25,24 @@ import java.util.Map;
 
 public class Render {
 
+    /**
+     * permanent for stop condition in recursion
+     */
+
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+
+    /**
+     * permanent for stop condition in recursion
+     */
+
+    private static final double MIN_CALC_COLOR_K = 0.001;
+
+    /**
+     * permanent to move the start of the rays for shadow, reflection and refraction rays
+     */
+
     private static final double DELTA = 0.1;
+
     private ImageWriter imageWriter;
     private Scene scene;
 
@@ -65,6 +82,7 @@ public class Render {
         }
         System.out.println("end");
     }
+
     public void writeToImage()
     {
         imageWriter.writeToImage();
@@ -155,11 +173,11 @@ public class Render {
     }
 
     /**
-     * @param light - light source
-     * @param l - light direction
-     * @param n - geometry normal
-     * @param gp - the point of the geometry
-     * @return if the point is not shaded
+     * @param light  source
+     * @param l  light direction
+     * @param n  geometry normal vector
+     * @param gp geometry's point
+     * @return does the point is unshaded
      */
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint gp) {
 
@@ -175,10 +193,9 @@ public class Render {
         }
         Vector deltaNormal = n.scale(d);
 
-        p = p.add(deltaNormal);
-        Vector direction = new Vector(lightDirection).normalize();
+        Point3D point3D = p.add(deltaNormal);
 
-        Ray lightRay = new Ray(p, direction);
+        Ray lightRay = new Ray(point3D, lightDirection.normalize());
 
         List<GeoPoint> intersections = scene.get_geometries().findIntersections(lightRay);
 
@@ -195,6 +212,92 @@ public class Render {
         }
         return true;
 
+    }
+
+    /**
+     *
+     * @param point of geometry
+     * @param ray that goes towards the geometry
+     * @param vec normal vector to the geometry
+     * @return the reflection
+     */
+
+    private Ray reflectionRay(Point3D point, Ray ray, Vector vec)
+    {
+        Vector v = ray.getV().normalize();
+        double vec1 = v.dotProduct(vec); //(v*vec)
+
+        if (vec1 == 0) return null;
+
+        Vector vec2 = v.subtract(vec.scale(2 * vec1)); //v-2(v*vec)*vec
+
+        double temp = vec.dotProduct(vec2);
+        double d = DELTA;
+        if (temp <= 0)
+        {
+            d = -d;
+        }
+        Vector dNormal = vec.scale(d);
+
+        Point3D p = point.add(dNormal);
+
+        return new Ray(p, vec2.normalize());
+    }
+
+    /**
+     * @param point of the geometry
+     * @param ray that sent towards the geometry
+     * @param vec normal vector to the geometry
+     * @return refraction ray
+     */
+
+    private Ray refractionRay(Point3D point, Ray ray, Vector vec)
+    {
+        Vector direction = ray.getV();
+
+        double temp = vec.dotProduct(direction);
+        double delta = DELTA;
+        if (temp <= 0)
+            delta *= -1;
+        Vector deltaNormal = vec.scale(delta);
+        Point3D p = point.add(deltaNormal);
+
+        return new Ray(p,direction.normalize());
+
+    }
+
+    /**
+     * @param ray that sent towards the geometry
+     * @return GeoPoint with the closest intersection point
+     */
+
+    private GeoPoint findClosestIntersection(Ray ray)
+    {
+        if (ray == null)
+        {
+            return null;
+        }
+
+        GeoPoint closestPoint = null;
+        double closestDistance = Double.MAX_VALUE;
+        Point3D p = ray.getP();
+
+        List<GeoPoint> intersections = scene.get_geometries().findIntersections(ray);
+        if (intersections == null)
+        {
+            return null;
+        }
+
+        for (GeoPoint geoPoint : intersections)
+        {
+            double distance = p.distance(geoPoint.point);
+            if (distance < closestDistance)
+            {
+                closestPoint = new GeoPoint(geoPoint.geometry, geoPoint.point);
+                closestDistance = distance;
+            }
+        }
+        return closestPoint;
     }
 
     /**
