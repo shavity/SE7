@@ -35,12 +35,15 @@ public class SpotLight extends PointLight {
 
     @Override
     public Color getIntensity(Point3D p) {
-        double d=p.distance(position);
-        double d2=max(0,direction.dotProduct(p.subtract(position).normalize()));
-        double r=(get_intensity().getColor().getRed()*d2)/(kc+kl*d+kq*d*d);
-        double g=(get_intensity().getColor().getGreen()*d2)/(kc+kl*d+kq*d*d);
-        double b=(get_intensity().getColor().getBlue()*d2)/(kc+kl*d+kq*d*d);
-        return new Color(r > 255 ? 255 : r,g > 255 ? 255 : g, b> 255 ? 255 : b);
+        double dl = direction.dotProduct(getL(p));
+
+        if (Util.isZero(dl)) {
+            return Color.BLACK;  //return new Color(0, 0, 0);
+        }
+        double help = Math.max(0, dl);
+        Color pointLightIntensity = super.getIntensity(p);
+
+        return (pointLightIntensity.scale(help));
     }
 
     /**

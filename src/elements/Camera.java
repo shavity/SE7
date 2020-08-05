@@ -71,6 +71,7 @@ public class Camera {
         System.out.println("R= "+ray);
         */
 
+        /*
         Point3D Pc = center.add(vTo.scale(screenDistance));
         vRight = vTo.crossProduct(vUp);
         double Rx = (screenWidth / nX);
@@ -80,14 +81,15 @@ public class Camera {
         Ray ray=new Ray(center,new Vector(P1.subtract(center)));
         //System.out.println("R= "+ray);
         return ray;
+         */
 
-        /*
+
         if (Util.isZero(screenDistance))
 		{
 			throw new IllegalArgumentException("distance cannot be 0");
 		}
 
-		Point3D Pc = new Point3D(_p0.add(_vTo.scale(screenDistance)));
+		Point3D Pc = new Point3D(center.add(vTo.scale(screenDistance)));
 
 		double Ry = screenHeight/nY;
 		double Rx = screenWidth/nX;
@@ -99,17 +101,17 @@ public class Camera {
 
 		if (! Util.isZero(xj))
 		{
-			Pij = new Point3D(Pij.add(_vRight.scale(xj)));
+			Pij = new Point3D(Pij.add(vRight.scale(xj)));
 		}
 		if (! Util.isZero(yi))
 		{
-			Pij = new Point3D(Pij.add(_vUp.scale((-1) * yi)));
+			Pij = new Point3D(Pij.add(vUp.scale((-1) * yi)));
 		}
 
-		Vector Vij = new Vector(Pij.subtract(_p0));
+		Vector Vij = new Vector(Pij.subtract(center));
 
-		return new Ray(_p0,Vij);
-         */
+		return new Ray(center,Vij);
+
     }
 
     /**
