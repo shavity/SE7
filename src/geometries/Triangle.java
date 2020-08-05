@@ -85,46 +85,26 @@ public class Triangle extends Polygon
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray)
-    {
-        Point3D t1 = this._vertices.get(0);
-        Point3D t2 = this._vertices.get(1);
-        Point3D t3 = this._vertices.get(2);
-        Point3D p0 = ray.getP();
-        Vector v11 = t1.subtract(p0);                                       //triangle number 1
-        Vector v12 = t2.subtract(p0);                                       //triangle number 1
+    {        List<GeoPoint> intersections = _plane.findIntersections(ray);
 
-        Vector v21 = t2.subtract(p0);                                       //triangle number 2
-        Vector v22 = t3.subtract(p0);                                       //triangle number 2
+        if (intersections == null) return null;
 
-        Vector v31 = t3.subtract(p0);                                       //triangle number 3
-        Vector v32 = t1.subtract(p0);                                       //triangle number 3
+        Point3D p0 = new Point3D(ray.getP());
+        Vector v = new Vector(ray.getV()).normalize();
 
-        Vector n1 = v12.crossProduct(v11).normalize();
-        //n1.scale((1 / (n1.length())));                                            //normal triangle 1
-        //n1=n1.normalize();
-        Vector n2 = v22.crossProduct(v21).normalize();
-        //n2.scale((1 / (n2.length())));                                            //normal triangle 2
-        Vector n3 = v32.crossProduct(v31).normalize();
-        //n3.scale((1 / (n3.length())));                                            //normal triangle 3
-        List<GeoPoint> list; // = new ArrayList<GeoPoint>();
-        Plane p1 = new Plane(this._emmission,this._material,this._plane.getV(),this._plane.getP());
-        list = p1.findIntersections(ray);                                   //intersections of plane
+        Vector v1 = new Vector(_vertices.get(0).subtract(p0)).normalize();
+        Vector v2 = new Vector(_vertices.get(1).subtract(p0)).normalize();
+        Vector v3 = new Vector(_vertices.get(2).subtract(p0)).normalize();
 
-        if(list==null)
-            return new ArrayList<>();  //<GeoPoint>
+        double s1 = v.dotProduct(v1.crossProduct(v2));
+        if (Util.isZero(s1)) return null;
+        double s2 = v.dotProduct(v2.crossProduct(v3));
+        if (Util.isZero(s2)) return null;
+        double s3 = v.dotProduct(v3.crossProduct(v1));
+        if (Util.isZero(s3)) return null;
 
-        Point3D p = list.get(0).point;
-        double i1 = (p.subtract(p0)).dotProduct(n1);
-        double i2 = (p.subtract(p0)).dotProduct(n2);
-        double i3 = (p.subtract(p0)).dotProduct(n3);
-        //boolean f1 = !isZero(i1);
-        //boolean f2 = !isZero(i2);
-        //boolean f3 = !isZero(i3);
+        intersections.get(0).geometry = this;
 
-        if((i1>0 && i2>0 && i3>0) || (i1<0 && i2<0 && i3<0))                                //if it is inside the triangle
-        {
-            return list;
-        }
-        return new ArrayList<>();  // <GeoPoint>
+        return ((s1 > 0 && s2 > 0 && s3 > 0) || (s1 < 0 && s2 < 0 && s3 < 0)) ? intersections : null;
     }                  //returns intersection points with the triangle
 }

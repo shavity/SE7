@@ -24,7 +24,7 @@ public class SpotLight extends PointLight {
 
     public SpotLight(Color _intensity, Point3D position,Vector direction, double kc, double kl, double kq) {
         super(_intensity, position, kc, kl, kq);
-        this.direction = direction.normalize();
+        this.direction = new Vector(direction).normalize();
     }
 
     /**
