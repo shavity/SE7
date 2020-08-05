@@ -12,6 +12,31 @@ public class Ray
     private Point3D p;
 
     /**
+     * permanent from Render class
+     */
+
+    private static final double DELTA = 0.1;
+
+    /**
+     * @param point3D ray point
+     * @param vector ray direction
+     * @param normal as its name
+     */
+    public Ray(Point3D point3D, Vector vector, Vector normal)
+    {
+        double temp = normal.dotProduct(vector);
+        double delta = DELTA;
+        if (temp <= 0)
+        {
+            delta = -delta;
+        }
+        Vector deltaNormal = normal.scale(delta);
+
+        p = point3D.add(deltaNormal);
+        v = new Vector(vector).normalize();
+    }
+
+    /**
      * Vector for direction and Point_3D to place it
      * @param p Point_3D, place
      * @param v direction Vector

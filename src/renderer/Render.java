@@ -92,7 +92,7 @@ public class Render {
      * @param ray by which we look at the scene
      * @return A map that connects cutting points and the geometry of those cut points.
      */
-    /*private Map<Intersectable, List<GeoPoint>> getSceneRayIntersections1(Ray ray) {
+    private Map<Intersectable, List<GeoPoint>> getSceneRayIntersections1(Ray ray) {
         List<Intersectable> geometries = scene.get_geometries().getIntersectables();
         Map<Intersectable, List<GeoPoint>> intersectionPoints = new HashMap<Intersectable, List<GeoPoint>>();
 
@@ -104,7 +104,7 @@ public class Render {
                 intersectionPoints.put(geometry,geometryIntersectionPoints);
         }
         return intersectionPoints;
-    }*/
+    }
     private List<GeoPoint> getSceneRayIntersections(Ray ray) {
         List<Intersectable> geometries = scene.get_geometries().getIntersectables();
         List<GeoPoint> intersectionPoints =new ArrayList<>(); //GeoPoint
@@ -184,6 +184,9 @@ public class Render {
         Vector delta = n.scale(n.dotProduct(lightDirection)>0?DELTA:-DELTA);
         Point3D p = gp.point.add(delta);
 
+        Ray lightRay = new Ray(p, lightDirection, n);
+
+        /*
         double temp = n.dotProduct(lightDirection);
         double d = DELTA;
         if (temp <= 0)
@@ -195,6 +198,7 @@ public class Render {
         Point3D point3D = p.add(deltaNormal);
 
         Ray lightRay = new Ray(point3D, lightDirection.normalize());
+        */
 
         List<GeoPoint> intersections = scene.get_geometries().findIntersections(lightRay);
 
@@ -230,6 +234,9 @@ public class Render {
 
         Vector vec2 = v.subtract(vec.scale(2 * vec1)); //v-2(v*vec)*vec
 
+        return new Ray(point, vec2, vec);
+
+        /*
         double temp = vec.dotProduct(vec2);
         double d = DELTA;
         if (temp <= 0)
@@ -241,6 +248,7 @@ public class Render {
         Point3D p = point.add(dNormal);
 
         return new Ray(p, vec2.normalize());
+         */
     }
 
     /**
@@ -252,6 +260,10 @@ public class Render {
 
     private Ray refractionRay(Point3D point, Ray ray, Vector vec)
     {
+
+        return new Ray(point, ray.getV().normalize(), vec);
+
+        /*
         Vector direction = ray.getV();
 
         double temp = vec.dotProduct(direction);
@@ -262,6 +274,7 @@ public class Render {
         Point3D p = point.add(deltaNormal);
 
         return new Ray(p,direction.normalize());
+         */
 
     }
 
@@ -316,7 +329,7 @@ public class Render {
     {
 
         if (level == 0 || k < MIN_CALC_COLOR_K) {
-            return new Color(0,0,0);
+            return new Color(0,0,0);  //black
         }
 
         List<LightSource> lights = scene.get_lights();
@@ -404,17 +417,22 @@ public class Render {
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geopoint)
     {
         //we sends ray from point to light source
-        Vector lightDiraction = l.scale(-1).normalize();
-        Vector delta = n.scale(n.dotProduct(lightDiraction)>0? DELTA:-DELTA);
+        Vector lightDirection = l.scale(-1).normalize();
+        Vector delta = n.scale(n.dotProduct(lightDirection)>0? DELTA:-DELTA);
         Point3D point = geopoint.point.add(delta);
 
-        double temp = n.dotProduct(lightDiraction);
+        Ray lightRay = new Ray(point, lightDirection, n);
+
+
+        /*
+        double temp = n.dotProduct(lightDirection);
         double d = DELTA;
         if (temp <= 0)
             d *= -1;
         Vector dNormal = n.scale(d);
 
-        Ray lightRay = new Ray(point.add(dNormal), lightDiraction.normalize());
+        Ray lightRay = new Ray(point.add(dNormal), lightDirection.normalize());
+         */
 
         List<GeoPoint> intersections = scene.get_geometries().findIntersections(lightRay);
 

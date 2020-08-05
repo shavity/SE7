@@ -6,3 +6,46 @@
 שאלות למרצה :
 1)האם פונקצית החתיתוך צריכה לבדוק אם הגוף נמצא מלפני הקרן או מאחריה הרי קרן זה אין סופי
 2)
+
+
+
+
+
+
+    public java.awt.Color calcColor(GeoPoint p) {
+        Color ambientLight = scene.get_ambientLight().get_intensity();//ambient
+        Color emissionLight = p.geometry.get_emmission();//emission
+
+        double r=addColors(ambientLight,emissionLight).getColor().getRed();
+        double g=addColors(ambientLight,emissionLight).getColor().getGreen();
+        double b=addColors(ambientLight,emissionLight).getColor().getBlue();
+        for (LightSource light:scene.get_lights()) {
+            Vector L = light.getL(p.point).normalize();
+            Vector V = p.point.subtract(scene.get_camera().getPoint_3D()).normalize();
+            Vector N = p.geometry.getNormal(p.point).normalize();
+            Vector R= L.subtract(N.scale(2*(L.dotProduct(N))));
+            //diffuse
+            //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            //System.out.println("L"+light.getIntensity(p.point).getColor());
+            //System.out.println("NL"+N.dotProduct(L));
+            //System.out.println("r: "+r+" g: "+g+" b: "+b);
+            if(N.dotProduct(L)>0) {
+                r += N.dotProduct(L) * p.geometry.get_material().getkD() * light.getIntensity(p.point).getColor().getRed();
+                g += N.dotProduct(L) * p.geometry.get_material().getkD() * light.getIntensity(p.point).getColor().getGreen();
+                b += N.dotProduct(L) * p.geometry.get_material().getkD() * light.getIntensity(p.point).getColor().getBlue();
+            }
+            //specular
+            //System.out.println("r: "+r+" g: "+g+" b: "+b);
+            //System.out.println("VR"+V.dotProduct(R));
+            if(V.dotProduct(R)>0) {
+                double m = Math.pow(V.dotProduct(R), p.geometry.get_material().getnS()) * p.geometry.get_material().getkS();
+                //System.out.println("m"+m);
+                r += m * light.getIntensity(p.point).getColor().getRed();
+                g += m * light.getIntensity(p.point).getColor().getGreen();
+                b += m * light.getIntensity(p.point).getColor().getBlue();
+            }
+            //System.out.println("r: "+r+" g: "+g+" b: "+b);
+        }
+        //System.out.println("r: "+r+" g: "+g+" b: "+b);
+        return  new Color(r > 255 ? 255 : r,g > 255 ? 255 : g, b> 255 ? 255 : b).getColor();
+    }
