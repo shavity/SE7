@@ -188,7 +188,7 @@ public class Render {
         double lightDistance = light.getDistance(gp.point);
 
         for (GeoPoint g : intersections) {
-            if (alignZero(g.point.distance(gp.point) - lightDistance) <= 0) //&& gp.geometry.get_material().getkT() == 0
+            if (alignZero(g.point.distance(gp.point) - lightDistance) <= 0 && gp.geometry.get_material().getkT() == 0)
                 return false;
         }
         return true;
